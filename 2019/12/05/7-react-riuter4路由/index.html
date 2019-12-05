@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>7-react-riuter4路由 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="react-router4（react路由）一、区别：router和route的区别：  router路由器，router.get(path,fun(req,res){})，该方法为后台路由的注册路由方法，注册一个key为path,value是后面的回调函数的一个路由。path就是你在地址栏上的路径。前端路由的注册路由为：。  route是路由，一个路由就是一个映射关系，即key:value，ke">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7-react-riuter4路由">
+<meta property="og:url" content="https:&#x2F;&#x2F;github.com&#x2F;OTY-QQ&#x2F;OTY-QQ_react-blog&#x2F;2019&#x2F;12&#x2F;05&#x2F;7-react-riuter4%E8%B7%AF%E7%94%B1&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="react-router4（react路由）一、区别：router和route的区别：  router路由器，router.get(path,fun(req,res){})，该方法为后台路由的注册路由方法，注册一个key为path,value是后面的回调函数的一个路由。path就是你在地址栏上的路径。前端路由的注册路由为：。  route是路由，一个路由就是一个映射关系，即key:value，ke">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-05T13:12:32.004Z">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/OTY-QQ_react-blog/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/OTY-QQ_react-blog/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/OTY-QQ_react-blog/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/OTY-QQ_react-blog/">Home</a>
+        
+          <a class="main-nav-link" href="/OTY-QQ_react-blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/OTY-QQ_react-blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/OTY-QQ/OTY-QQ_react-blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-7-react-riuter4路由" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/OTY-QQ_react-blog/2019/12/05/7-react-riuter4%E8%B7%AF%E7%94%B1/" class="article-date">
+  <time datetime="2019-12-05T12:28:52.749Z" itemprop="datePublished">2019-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      7-react-riuter4路由
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="react-router4（react路由）"><a href="#react-router4（react路由）" class="headerlink" title="react-router4（react路由）"></a>react-router4（react路由）</h4><h5 id="一、区别："><a href="#一、区别：" class="headerlink" title="一、区别："></a>一、区别：</h5><p>router和route的区别：</p>
+<ul>
+<li><p>router路由器，router.get(path,fun(req,res){})，该方法为后台路由的注册路由方法，注册一个key为path,value是后面的回调函数的一个路由。path就是你在地址栏上的路径。前端路由的注册路由为：<Router path='/a' component={A}>。</p>
+</li>
+<li><p>route是路由，一个路由就是一个映射关系，即key:value，key为路由路径，value分为两种，如果为后台路由即第二个参数为回调函数，如果是前端路由即是一个组件。</p>
+</li>
+</ul>
+<p><strong>路由的基础原理：（history）</strong></p>
+<p>就是浏览器的自身携带的一个history的方法，以及他的一些方法：（react使用了一个）</p>
+<p>history.push(path)：添加一个地址，用于记忆地址变化。</p>
+<p>history.goBack(path)：回退前一个地址。</p>
+<p>history.goForward(path)：前进一个地址。</p>
+<p>history.replace(path)：替换当前地址。记住是替换。</p>
+<p>注意：可以象限为histroy是一个数组，理解就差不多了。</p>
+<h5 id="二、使用"><a href="#二、使用" class="headerlink" title="二、使用"></a>二、使用</h5><p>路由实例：</p>
+<p>安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">npm i -save react-router-dom</span></pre></td></tr></table></figure>
+
+<p>src文件夹下创建一个components和views/pages文件夹，一般components文件夹放的是组件，例如一个app.js包含a.js和b.js，app.js就放在components文件夹下，其他内部的放入pages文件夹下。</p>
+<p><strong>例子：</strong></p>
+<p>index.js:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">import React from &#39;react&#39;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">import ReactDOM from &#39;react-dom&#39;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">import App from &#39;.&#x2F;containers&#x2F;app.js&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">import &#123;BrowserRouter&#125; from &#39;react-router-dom&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">ReactDOM.render(</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">     (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        &lt;BrowserRouter&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">            &lt;App &#x2F;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        &lt;&#x2F;BrowserRouter&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    ),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">     document.getElementById(&#39;root&#39;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">);</span></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong> </p>
+<ul>
+<li><p>在安装了react-router-dom后引入import {BrowserRouter} from ‘react-router-dom’，然后就呢能使用<BrowserRouter>标签包裹App。</p>
+</li>
+<li><p>嵌套的最好使用（）来包裹，便于区分。</p>
+</li>
+</ul>
+<p><strong>app.js:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">import React,&#123;Component&#125; from &#39;react&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">import &#123;NavLink,Switch,Route,Redirect&#125; from &#39;react-router-dom&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;引入组件</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">import About  from &#39;..&#x2F;components&#x2F;about&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">import Home   from &#39;..&#x2F;components&#x2F;home&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">export default class App extends Component&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    render()&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        return(</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">            &lt;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">                &lt;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">                    &lt;NavLink className&#x3D;&quot;about&quot; activeClassName&#x3D;&quot;active&quot; to&#x3D;&#39;&#x2F;about&#39;&gt;about&lt;&#x2F;NavLink&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">                    &lt;NavLink className&#x3D;&quot;home&quot;  activeClassName&#x3D;&quot;active&quot; to&#x3D;&#39;&#x2F;home&#39;&gt;home&lt;&#x2F;NavLink&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">                &lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">                &#x2F;&#x2F;路由显示，相当于view</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">                &lt;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">                    &lt;Switch&gt;&#x2F;&#x2F;下面的Route只能显示其中一个的意思</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">                      &lt;Route path&#x3D;&#39;&#x2F;about&#39; component&#x3D;&#123;About&#125;&#x2F;&gt;&#x2F;&#x2F;对应上面的NavLink的to</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">                      &lt;Route path&#x3D;&#39;&#x2F;home&#39; component&#x3D;&#123;Home&#125;&#x2F;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">                      &lt;Redirect to&#x3D;&#39;&#x2F;about&#39;&#x2F;&gt;&#x2F;&#x2F;重定向</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">                    &lt;&#x2F;Switch&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">                &lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">            &lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">        )</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<ul>
+<li><p>import {NavLink,Switch,Route,Redirect} from ‘react-router-dom’引入，然后就可以使用其对应的标签，各个标签作用看下文解析。</p>
+</li>
+<li><p><NavLink>：路由导航，作用和view的link类似，主要属性to和下面的<Route>的path配对。</p>
+</li>
+<li><p><Route>: 路由显示，即该标签显示的就是路由的内容，显示内容为该标签的component对应的组件。</p>
+</li>
+<li><p><Switch>：路由多选一，如果一个显示的位置需要显示切换不同的路由，即包含多个 <Route>，并且这些路由同一时间只能显示一个的情况下使用该标签。</p>
+</li>
+<li><p><Redirect>: 重定向路由，to即为重定向的路由。</p>
+</li>
+<li><p>activeClassName的意思就是选中该路由连接触发的样式，即在当前样式添加activeClassName的样式，来表示当前选择的路由连接。</p>
+</li>
+<li><p>设置的样式需要引入css文件，import  ‘index.cass’</p>
+</li>
+<li><p>如果还是没有显示出来，说明样式可能被覆盖，需要在index.css文件上设置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">.active&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    color: red !important;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li>优化组件:  解决公共属性的部分，例如需要很多NavLink都需要使用：activeClassName=”active”的话，就会很麻烦，所以可以封装组件：</li>
+</ul>
+<p><strong>MyNavLink.js:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">import React,&#123;Component&#125; from &#39;react&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">import &#123;NavLink&#125; from &#39;react-router-dom&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">export default class MyNavLink extends Component&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    render()&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        &#x2F;*必须使用&#123;...this.props&#125;把外部所有属性传到该组件上，例如该组价的to等*&#x2F;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        return &lt;NavLink &#123;...this.props&#125; activeClassName&#x3D;&quot;active&quot;&#x2F;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p><strong>app.js使用的时候：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">import MyNavLink from &#39;..&#x2F;components&#x2F;myNavLink&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&lt;NavLink&gt;部分改为下面的</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">MyNavLink className&#x3D;&quot;about&quot;  to&#x3D;&#39;&#x2F;about&#39;&gt;about&lt;&#x2F;MyNavLink&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&lt;MyNavLink className&#x3D;&quot;home&quot;   to&#x3D;&#39;&#x2F;home&#39;&gt;home&lt;&#x2F;MyNavLink&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;去除了公共的部分activeClassName</span></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<ul>
+<li>必须要在MyNavLink组件上引用了{…this.props},意思就是引用该标签<MyNavLink />上所有的属性传递给该组件，因为使用该MyNavLink 标签，返回的就是return的内容，所以return的内容上必须包括所有需要设置的属性，才能达到效果。</li>
+</ul>
+<p><strong>about.js和home.js:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">import React,&#123;Component&#125; from &#39;react&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">export default class Home extends Component&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    render()&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        return(</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">            &lt;div&gt;Home&lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        )</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">import React,&#123;Component&#125; from &#39;react&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">export default class About extends Component&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    render()&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        return(</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">            &lt;div&gt;About&lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        )</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+
+
+
+
+<h5 id="过程："><a href="#过程：" class="headerlink" title="过程："></a>过程：</h5><p>（1）先引入react的react-router-dom文件</p>
+<p>（2）在index.js上渲染路由</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">ReactDOM.render(</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">     (</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        &lt;BrowserRouter&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">            &lt;App &#x2F;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        &lt;&#x2F;BrowserRouter&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    ),</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">     document.getElementById(&#39;root&#39;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">);</span></pre></td></tr></table></figure>
+
+<p>（3）app.js等组件使用路由：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;1、先引入对应的标签然后才能使用对应的标签</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">import &#123;NavLink,Switch,Route,Redirect&#125; from &#39;react-router-dom&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;2、render()上使用</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;2.1、路由链接，相当于a标签那种&lt;link&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&lt;NavLink  to&#x3D;&#39;&#x2F;about&#39;&gt;about&lt;&#x2F;NavLink&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;2.2、路由显示部分，相当于vue的&lt;router-view&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&lt;Route path&#x3D;&#39;&#x2F;about&#39; component&#x3D;&#123;About&#125;&#x2F;&gt;</span></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>嵌套路由：</strong></p>
+<p>home.js:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">import React,&#123;Component&#125; from &#39;react&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">import &#123;Switch,Route,Redirect &#125;from &#39;react-router-dom&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">import MyNavLink from &#39;.&#x2F;myNavLink&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">import News from &#39;.&#x2F;news&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">export default class Home extends Component&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    render()&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        return(</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">            &lt;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">                &lt;h2&gt;Home&lt;&#x2F;h2&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">                &#x2F;&#x2F;路由连接部分</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">                &lt;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">                    &lt;ul className&#x3D;&#39;nav&#39;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">                        &lt;li&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">                            &lt;MyNavLink to&#x3D;&#39;&#x2F;home&#x2F;news&#39;&gt;news&lt;&#x2F;MyNavLink&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">                        &lt;&#x2F;li&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">                    &lt;&#x2F;ul&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">                &lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">                &#x2F;&#x2F;路由显示部分</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">                &lt;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">                    &lt;Route path&#x3D;&#39;&#x2F;home&#x2F;news&#39; component&#x3D;&#123;News&#125;&#x2F;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">                &lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">            &lt;&#x2F;div&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">        )</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+
+
+<p> <strong>news.js:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">import React,&#123;Component&#125; from &#39;react&#39;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">export default class News extends Component&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    state&#x3D;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        messages:[]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    componentDidMount()&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        &#x2F;&#x2F;模拟发送ajax请求，异步获取数据</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        setTimeout(()&#x3D;&gt;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">            const messages&#x3D;[</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">                &#123;id:1,title: &#39;a&#39;&#125;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">                &#123;id:2,title: &#39;b&#39;&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">            ]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">            &#x2F;&#x2F;更新状态</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            this.setState(&#123;messages&#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        &#125;,1000)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    render()&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">        return(</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">            &lt;ul&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">                this.state.messages.map((m,index)&#x3D;&gt;(</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">                    &lt;li key&#x3D;&#123;index&#125;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">                        &lt;a&gt;&#123;m.title&#125;&lt;&#x2F;a&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">                    &lt;&#x2F;li&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">                    )</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">                )</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">            &lt;&#x2F;ul&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">        )</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<p>（1）实现效果和上面的路由实现一样。</p>
+<p>（2）componentDidMount（）{}的生命周期为组件加载完毕，一般这时候进行对异步请求的发送。</p>
+<p>（3）获取数组每个元素的写法：<code>map((item,index)=&gt;&lt;li key={index}&gt;aaa&lt;/li&gt;</code>，记得带key。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;经常使用该map方法把数组的数据按html标签的形式输出。</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">         this.state.messages.map((m,index)&#x3D;&gt;(</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">         &lt;li key&#x3D;&#123;index&#125;&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">         &lt;a&gt;&#123;m.title&#125;&lt;&#x2F;a&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">         &lt;&#x2F;li&gt;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        )</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"> 	)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/OTY-QQ/OTY-QQ_react-blog/2019/12/05/7-react-riuter4%E8%B7%AF%E7%94%B1/" data-id="ck3svih25000edwqq66p6chj0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/OTY-QQ_react-blog/2019/12/05/3-%E7%BB%84%E4%BB%B6%E4%B8%89%E5%A4%A7%E5%B1%9E%E6%80%A7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          3-组件三大属性
+        
+      </div>
+    </a>
+  
+  
+    <a href="/OTY-QQ_react-blog/2019/12/05/1-jsx%E5%92%8C%E5%BB%BA%E7%AB%8B%E8%99%9A%E6%8B%9Fdom/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">1-jsx和建立虚拟dom</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/OTY-QQ_react-blog/archives/2019/12/">December 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/OTY-QQ_react-blog/2019/12/05/14-%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0react/">14-使用js实现react</a>
+          </li>
+        
+          <li>
+            <a href="/OTY-QQ_react-blog/2019/12/05/15-axios%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">15-axios和反向代理</a>
+          </li>
+        
+          <li>
+            <a href="/OTY-QQ_react-blog/2019/12/05/16-cookie%E7%9A%84%E5%A4%84%E7%90%86/">16-cookie的处理</a>
+          </li>
+        
+          <li>
+            <a href="/OTY-QQ_react-blog/2019/12/05/4-%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BF%AE%E6%94%B9%E7%88%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E7%8A%B6%E6%80%81/">4-子组件修改父组件的状态</a>
+          </li>
+        
+          <li>
+            <a href="/OTY-QQ_react-blog/2019/12/05/10-redux/">10-redux</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/OTY-QQ_react-blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/OTY-QQ_react-blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/OTY-QQ_react-blog/fancybox/jquery.fancybox.css">
+  <script src="/OTY-QQ_react-blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/OTY-QQ_react-blog/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>15-axios和反向代理 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="axios发送的时机是：componentDidMount 反向代理：作用： 1、解决跨域的问题 2、解决token传递需要带cookie的问题 没有反向代理的请求效果： 原因:因为cookie遵循的是同源策略，所以在跨域情况下cookie无法被传输和创建，这就比较坑了，因为在登录接口需要cookie+session来判断用户登录超时等逻辑所以此处需要解决   反向代理后的效果  反向代理的配置：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="15-axios和反向代理">
+<meta property="og:url" content="https:&#x2F;&#x2F;github.com&#x2F;OTY-QQ&#x2F;OTY-QQ_react-blog&#x2F;2019&#x2F;12&#x2F;05&#x2F;15-axios%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="axios发送的时机是：componentDidMount 反向代理：作用： 1、解决跨域的问题 2、解决token传递需要带cookie的问题 没有反向代理的请求效果： 原因:因为cookie遵循的是同源策略，所以在跨域情况下cookie无法被传输和创建，这就比较坑了，因为在登录接口需要cookie+session来判断用户登录超时等逻辑所以此处需要解决   反向代理后的效果  反向代理的配置：">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;OTY-QQ&#x2F;blog-images&#x2F;raw&#x2F;master&#x2F;reactImages&#x2F;reactBlog&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;OTY-QQ&#x2F;blog-images&#x2F;raw&#x2F;master&#x2F;reactImages&#x2F;reactBlog&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;OTY-QQ&#x2F;blog-images&#x2F;raw&#x2F;master&#x2F;reactImages&#x2F;reactBlog&#x2F;7.png">
+<meta property="og:updated_time" content="2019-12-05T15:17:54.830Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;github.com&#x2F;OTY-QQ&#x2F;blog-images&#x2F;raw&#x2F;master&#x2F;reactImages&#x2F;reactBlog&#x2F;5.png">
+  
+    <link rel="alternate" href="/OTY-QQ_react-blog/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/OTY-QQ_react-blog/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/OTY-QQ_react-blog/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/OTY-QQ_react-blog/">Home</a>
+        
+          <a class="main-nav-link" href="/OTY-QQ_react-blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/OTY-QQ_react-blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/OTY-QQ/OTY-QQ_react-blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-15-axios和反向代理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/OTY-QQ_react-blog/2019/12/05/15-axios%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" class="article-date">
+  <time datetime="2019-12-05T12:32:49.939Z" itemprop="datePublished">2019-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      15-axios和反向代理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h4><p><strong>发送的时机是：componentDidMount</strong></p>
+<h4 id="反向代理："><a href="#反向代理：" class="headerlink" title="反向代理："></a>反向代理：</h4><p>作用：</p>
+<p>1、解决跨域的问题</p>
+<p>2、解决token传递需要带cookie的问题</p>
+<p>没有反向代理的请求效果：</p>
+<p>原因:因为cookie遵循的是同源策略，所以在跨域情况下cookie无法被传输和创建，这就比较坑了，因为在登录接口需要cookie+session来判断用户登录超时等逻辑所以此处需要解决</p>
+<p><img src="https://github.com/OTY-QQ/blog-images/raw/master/reactImages/reactBlog/5.png" alt="img"></p>
+<p><img src="https://github.com/OTY-QQ/blog-images/raw/master/reactImages/reactBlog/6.png" alt="img"></p>
+<p>反向代理后的效果</p>
+<p><img src="https://github.com/OTY-QQ/blog-images/raw/master/reactImages/reactBlog/7.png" alt="img"></p>
+<p><strong>反向代理的配置：</strong></p>
+<p>第一步：安装 http-proxy-middleware npm或者是yarn都可以，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">npm i http-proxy-middleware --save</span></pre></td></tr></table></figure>
+
+<p>第二步：创建 src/setupProxy.js 文件，也就是在src目录下创建setupProxy.js文件。</p>
+<p>第三步：在 创建的setupProxy.js文件中引入http-proxy-middleware，然后配置反向代理就可以了</p>
+<p><strong>src/setupProxy.js:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">const proxy &#x3D; require(&#39;http-proxy-middleware&#39;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">module.exports &#x3D; function(app) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  &#x2F;&#x2F; &#x2F;api 表示代理路径</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  &#x2F;&#x2F; target 表示目标服务器的地址</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  app.use(</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">      &#x2F;&#x2F;-------   使用&#x2F;api来代替原来的http:&#x2F;&#x2F;localhost:8080，，使用api&#x2F;student&#x2F;login(效果等同于http:&#x2F;&#x2F;localhost:8080&#x2F;student&#x2F;login)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    proxy(&#39;&#x2F;api&#39;, &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    &#x2F;&#x2F; http:&#x2F;&#x2F;localhost:8080&#x2F; 地址是服务器端启动的端口</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">      target: &#39;http:&#x2F;&#x2F;localhost:8080&#x2F;&#39;,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">      &#x2F;&#x2F; 跨域时一般都设置该值 为 true</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">      changeOrigin: true,</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">      &#x2F;&#x2F; 重写接口路由</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">      pathRewrite: &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        &#39;^&#x2F;api&#39;: &#39;&#39; &#x2F;&#x2F; 这样处理后，最终得到的接口路径为： http:&#x2F;&#x2F;localhost:8080&#x2F;xxx</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">      &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    &#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">  )</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<ul>
+<li>使用/api来代替原来的<a href="http://localhost:8080，，使用api/student/login" target="_blank" rel="noopener">http://localhost:8080，，使用api/student/login</a>(效果等同于  <a href="http://localhost:8080/student/login" target="_blank" rel="noopener">http://localhost:8080/student/login</a>)</li>
+</ul>
+<h4 id="应用："><a href="#应用：" class="headerlink" title="应用："></a>应用：</h4><p><strong>login.js:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">ajax(&#39;api&#x2F;student&#x2F;login&#39;,values,&#39;post&#39;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    .then((response)&#x3D;&gt;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    if(response.data.Code&#x3D;&#x3D;&#x3D;1)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        message.success(&quot;登陆成功&quot;,1,()&#x3D;&gt;&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        setCookie(&#39;token&#39;,response.data.Token,1);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        this.props.history.replace(&#39;&#x2F;main&#39;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        console.log(&#39;以保存token：&#39;+getCookie(&#39;token&#39;))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125;)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    &#125;else&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    	message.error(&quot;账号或者密码不存在，请前往注册&quot;,2)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/OTY-QQ/OTY-QQ_react-blog/2019/12/05/15-axios%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" data-id="ck3svih1m0005dwqqfsw7c0t3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/OTY-QQ_react-blog/2019/12/05/14-%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0react/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          14-使用js实现react
+        
+      </div>
+    </a>
+  
+  
+    <a href="/OTY-QQ_react-blog/2019/12/05/16-cookie%E7%9A%84%E5%A4%84%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">16-cookie的处理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/OTY-QQ_react-blog/archives/2019/12/">December 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/OTY-QQ_react-blog/2019/12/05/14-%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0react/">14-使用js实现react</a>
+          </li>
+        
+          <li>
+            <a href="/OTY-QQ_react-blog/2019/12/05/15-axios%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">15-axios和反向代理</a>
+          </li>
+        
+          <li>
+            <a href="/OTY-QQ_react-blog/2019/12/05/16-cookie%E7%9A%84%E5%A4%84%E7%90%86/">16-cookie的处理</a>
+          </li>
+        
+          <li>
+            <a href="/OTY-QQ_react-blog/2019/12/05/4-%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BF%AE%E6%94%B9%E7%88%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E7%8A%B6%E6%80%81/">4-子组件修改父组件的状态</a>
+          </li>
+        
+          <li>
+            <a href="/OTY-QQ_react-blog/2019/12/05/10-redux/">10-redux</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/OTY-QQ_react-blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/OTY-QQ_react-blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/OTY-QQ_react-blog/fancybox/jquery.fancybox.css">
+  <script src="/OTY-QQ_react-blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/OTY-QQ_react-blog/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
